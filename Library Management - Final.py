@@ -1,12 +1,28 @@
 import tkinter as tk
 from tkinter import messagebox
+import json
+import os
+
 
 class Library:
-    def __init__(self, booklist, name, database_path="LibraryDataset.txt"):
+    def __init__(self, booklist, name, database_path="LibraryDataset.txt", borrow_path="borrowed_books.json"):
         self.bookList = booklist
         self.name = name
         self.database_path = database_path
-        self.lendDict = {}
+        self.borrow_path = borrow_path
+        self.lendDict = self.load_borrow_data()
+
+
+    def load_borrow_data(self):
+        if os.path.exists(self.borrow_path):
+            with open(self.borrow_path, "r") as f:
+                return json.load(f)
+        return {}
+
+    def save_borrow_data(self):
+        with open(self.borrow_path, "w") as f:
+            json.dump(self.lendDict, f, indent=4)
+
 
     def displayBooks(self):
         return self.bookList
@@ -19,6 +35,7 @@ class Library:
             return f"❌ '{book}' is already borrowed by {self.lendDict[book]}"
 
         self.lendDict[book] = user
+        self.save_borrow_data()
         return f"📚 '{book}' has been borrowed by {user}."
 
     def addBook(self, book):
@@ -37,17 +54,16 @@ class Library:
             return "⚠️ Book is not borrowed."
 
         self.lendDict.pop(book)
+        self.save_borrow_data()
         return "✅ Book returned successfully."
 
 
-# Load books from file
 with open("LibraryDataset.txt", "r") as f:
     books = [line.strip() for line in f.readlines()]
 
 lib = Library(books, "Pouya's Library")
 
 
-# ---------------- GUI Functions ---------------- #
 
 def display_books():
     display.delete(0, tk.END)
@@ -75,7 +91,6 @@ def return_book():
     display_books()
 
 
-# ---------------- GUI Layout ---------------- #
 
 root = tk.Tk()
 root.title("Library Management System")
