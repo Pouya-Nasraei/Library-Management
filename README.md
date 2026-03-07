@@ -155,12 +155,13 @@ Main interface elements:
 ```
 Library-Management-System
 │
-├── main.py
+├── Library Management - Final.py
 ├── LibraryDataset.txt
 ├── borrowed_books.json
 ├── images/
-│   ├── library-interface.png
-│   └── borrowed-books-example.png
+│   ├── App-Interface.png
+│   ├── Successful-Borrow.png
+│   └── Borrowed-Books-Json.png
 └── README.md
 ```
 
@@ -183,7 +184,7 @@ cd Library-Management-System
 ### 3. Run the application
 
 ```
-python main.py
+python Library Management - Final.py
 ```
 
 Python 3.8 or newer is recommended.
