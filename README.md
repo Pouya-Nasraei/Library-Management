@@ -22,15 +22,15 @@ The application loads the library catalogue from a local dataset file and update
 
 ### Application Interface
 
-![Application Interface](Images/App Interface.png)
+![Application Interface](Images/App-Interface.png)
 
 ### Successful Borrow
 
-![Borrowed Books Example](Images/Successful Borrow.png)
+![Borrowed Books Example](Images/Successful-Borrow.png)
 
 ### Borrowed Books Record
 
-![Borrowed Books Example](Images/Borrowed Books Json.png)
+![Borrowed Books Example](Images/Borrowed-Books-Json.png)
 
 ---
 
