@@ -35,32 +35,46 @@ def start_gui():
     display = tk.Listbox(root, width=50, height=10)
 
     def display_books():
+
         display.delete(0, tk.END)
+
         for book in lib.displayBooks():
             display.insert(tk.END, book)
 
     def lend_book():
+
         try:
+
             result = lib.lendBook(entry_book.get(), entry_user.get())
             messagebox.showinfo("Borrow Book", result)
             display_books()
+
         except ValueError as e:
+
             messagebox.showerror("Validation Error", str(e))
 
     def add_book():
+
         try:
+
             result = lib.addBook(entry_book.get())
             messagebox.showinfo("Add Book", result)
             display_books()
+
         except ValueError as e:
+
             messagebox.showerror("Validation Error", str(e))
 
     def return_book():
+
         try:
+
             result = lib.returnBook(entry_book.get())
             messagebox.showinfo("Return Book", result)
             display_books()
+
         except ValueError as e:
+
             messagebox.showerror("Validation Error", str(e))
 
     frame_buttons = tk.Frame(root, bg="white")
