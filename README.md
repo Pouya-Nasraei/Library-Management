@@ -32,7 +32,7 @@ The application loads the library catalogue from a dataset file and dynamically 
 
 ### Borrowed Books Record
 
-![Borrowed Books Example](Images/Borrowed-Books-Json.png)
+![Borrowed Books Example](Images/Borrowed-Books-DB.png)
 
 ---
 
