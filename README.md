@@ -47,10 +47,11 @@ Each line in the file represents one book.
 Example dataset:
 
 ```
-Atomic Habits
-Clean Code
-The Pragmatic Programmer
-Deep Learning with Python
+Python Crash Course
+Head First Python
+Learn Python3 – The Hard Way
+Think Python
+Automate The Boring Stuff using Python
 ```
 
 During application startup the dataset is loaded into memory and displayed in the GUI.
@@ -65,8 +66,8 @@ Example structure:
 
 ```python
 self.lendDict = {
-    "Clean Code": "Alice",
-    "Atomic Habits": "Bob"
+    "Think Python": "Janna",
+    "Head First Python": "Niki"
 }
 ```
 
@@ -167,6 +168,7 @@ Library-Management-System
 │
 ├── LibraryDataset.txt      # Book catalogue
 ├── borrowed_books.json     # Borrow records
+├── requirements.txt        # Project dependency list
 │
 ├── test_library.py         # Unit tests
 │
