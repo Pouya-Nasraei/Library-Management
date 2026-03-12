@@ -5,7 +5,7 @@ from validation import validate_book, validate_user
 
 class Library:
 
-    def __init__(self, booklist, name, database_path="LibraryDataset.txt", db_file="library.db"):
+    def __init__(self, booklist, name, database_path="LibraryDataset.txt", db_file="borrowed_books.db"):
 
         self.bookList = booklist
         self.name = name
@@ -83,3 +83,4 @@ class Library:
         self.conn.commit()
 
         return "Book returned successfully."
+
