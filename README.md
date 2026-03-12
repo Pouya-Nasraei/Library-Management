@@ -49,7 +49,7 @@ Example dataset:
 ```
 Python Crash Course
 Head First Python
-Learn Python3 – The Hard Way
+Learn Python3
 Think Python
 Automate The Boring Stuff using Python
 ```
