@@ -68,6 +68,7 @@ Example structure:
 self.lendDict = {
     "Think Python": "Janna",
     "Head First Python": "Niki"
+    "Learn Python3": "Sarah"
 }
 ```
 
