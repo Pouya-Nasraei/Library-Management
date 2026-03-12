@@ -1,25 +1,33 @@
-import json
+import sqlite3
 import os
 from validation import validate_book, validate_user
 
 
 class Library:
-    def __init__(self, booklist, name, database_path="LibraryDataset.txt", borrow_path="borrowed_books.json"):
+
+    def __init__(self, booklist, name, database_path="LibraryDataset.txt", db_file="library.db"):
+
         self.bookList = booklist
         self.name = name
         self.database_path = database_path
-        self.borrow_path = borrow_path
-        self.lendDict = self.load_borrow_data()
+        self.db_file = db_file
 
-    def load_borrow_data(self):
-        if os.path.exists(self.borrow_path):
-            with open(self.borrow_path, "r") as f:
-                return json.load(f)
-        return {}
+        self.conn = sqlite3.connect(self.db_file)
+        self.cursor = self.conn.cursor()
 
-    def save_borrow_data(self):
-        with open(self.borrow_path, "w") as f:
-            json.dump(self.lendDict, f, indent=4)
+        self.create_table()
+
+    def create_table(self):
+
+        self.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS borrowed_books (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            book TEXT UNIQUE,
+            user TEXT
+        )
+        """)
+
+        self.conn.commit()
 
     def displayBooks(self):
         return self.bookList
@@ -32,11 +40,18 @@ class Library:
         if book not in self.bookList:
             return f"'{book}' is not in the library."
 
-        if book in self.lendDict:
-            return f"'{book}' is already borrowed by {self.lendDict[book]}"
+        self.cursor.execute("SELECT user FROM borrowed_books WHERE book=?", (book,))
+        result = self.cursor.fetchone()
 
-        self.lendDict[book] = user
-        self.save_borrow_data()
+        if result:
+            return f"'{book}' is already borrowed by {result[0]}"
+
+        self.cursor.execute(
+            "INSERT INTO borrowed_books (book, user) VALUES (?, ?)",
+            (book, user)
+        )
+
+        self.conn.commit()
 
         return f"'{book}' has been borrowed by {user}."
 
@@ -58,10 +73,13 @@ class Library:
 
         validate_book(book)
 
-        if book not in self.lendDict:
+        self.cursor.execute("SELECT * FROM borrowed_books WHERE book=?", (book,))
+        result = self.cursor.fetchone()
+
+        if not result:
             return "Book is not borrowed."
 
-        self.lendDict.pop(book)
-        self.save_borrow_data()
+        self.cursor.execute("DELETE FROM borrowed_books WHERE book=?", (book,))
+        self.conn.commit()
 
         return "Book returned successfully."
