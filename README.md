@@ -167,7 +167,7 @@ Library-Management-System
 ├── validation.py           # Input validation
 │
 ├── LibraryDataset.txt      # Book catalogue
-├── borrowed_books.json     # Borrow records
+├── borrowed_books.db       # SQLite database storing borrowed books
 ├── requirements.txt        # Project dependency list
 │
 ├── test_library.py         # Unit tests
