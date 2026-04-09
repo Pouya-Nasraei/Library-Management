@@ -24,7 +24,7 @@ The application loads the library catalogue from a dataset file and dynamically 
 
 ### Application Interface
 
-![Application Interface](Images/App-Interface.png)
+![Application Interface](Images/App-new-Interface.png)
 
 ### Successful Borrow
 
