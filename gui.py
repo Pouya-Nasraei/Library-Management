@@ -19,7 +19,7 @@ def start_gui():
     root.geometry("450x500")
     root.resizable(False, False)
     
-    bg_image = Image.open("Images\\library_books.jpg")
+    bg_image = Image.open("Images\\library.jpg")
     bg_image = bg_image.resize((450, 500))
     bg_photo = ImageTk.PhotoImage(bg_image)
 
