@@ -9,7 +9,6 @@ def load_books():
     with open("LibraryDataset.txt", "r") as f:
         return [line.strip() for line in f.readlines()]
 
-
 def start_gui():
 
     books = load_books()
@@ -17,32 +16,49 @@ def start_gui():
 
     root = tk.Tk()
     root.title("Library Management System")
-    root.geometry("500x450")
+    root.geometry("450x500")
+    root.resizable(False, False)
     
-    bg_image = Image.open("Images\\bg.jfif")
-    bg_image = bg_image.resize((500, 450))
+    bg_image = Image.open("Images\\library_books.jpg")
+    bg_image = bg_image.resize((450, 500))
     bg_photo = ImageTk.PhotoImage(bg_image)
 
-    canvas = tk.Canvas(root, width=500, height=450)
+    canvas = tk.Canvas(root, width=450, height=500)
     canvas.pack(fill="both", expand=True)
     canvas.create_image(0, 0, image=bg_photo, anchor="nw")
     canvas.bg_photo = bg_photo
 
-    title_lbl = tk.Label(canvas, text="Pouya's Library", font=("Arial", 16, "bold"), bg=None)
-    canvas.create_window(250, 30, window=title_lbl)
+    canvas.create_text(
+    220, 35,
+    text="Pouya's Library",
+    font=("Arial", 18, "bold"),
+    justify= "center",
+    fill="white"
+    )
+    
+    canvas.create_text(
+    110, 80,
+    text="Book:",
+    font=("Arial", 14, "bold"),
+    justify= "left",
+    fill="white"
+    )
+    
+    entry_book = tk.Entry(root, width=25)
+    canvas.create_window(270, 80, window=entry_book)
+    
+    canvas.create_text(
+    130, 110,
+    text="Username:",
+    font=("Arial", 14, "bold"),
+    justify= "left",
+    fill="white"
+    )
+    
+    entry_user = tk.Entry(root, width=25)
+    canvas.create_window(270, 110, window=entry_user)
 
-    frame_inputs = tk.Frame(root)
-
-    tk.Label(frame_inputs, text="Book:", font=("Arial", 12)).grid(row=0, column=0, padx=5)
-    entry_book = tk.Entry(frame_inputs, width=30)
-    entry_book.grid(row=0, column=1, padx=5)
-
-    tk.Label(frame_inputs, text="Username:", font=("Arial", 12)).grid(row=1, column=0, padx=5)
-    entry_user = tk.Entry(frame_inputs, width=30)
-    entry_user.grid(row=1, column=1, padx=5)
-    canvas.create_window(250, 85, window=frame_inputs)
-
-    display_lst = tk.Listbox(root, width=50, height=10, font=("Sans", 10), bg="white", fg="Black", border=2, relief="groove")
+    display_lst = tk.Listbox(root, width=45, height=12, font=("Sans", 10), bg="white", fg="Black", border=2, relief="groove", justify="left")
 
     def display_books():
 
@@ -80,20 +96,28 @@ def start_gui():
 
         except ValueError as e:
             messagebox.showerror("Validation Error", str(e))
-
-    frame_buttons = tk.Frame(root)
-
-    tk.Button(frame_buttons, text="Display Books", width=15, command=display_books).grid(row=0, column=0, padx=5)
-    tk.Button(frame_buttons, text="Borrow Book", width=15, command=lend_book).grid(row=0, column=1, padx=5)
-    tk.Button(frame_buttons, text="Add Book", width=15, command=add_book).grid(row=1, column=0, padx=5, pady=5)
-    tk.Button(frame_buttons, text="Return Book", width=15, command=return_book).grid(row=1, column=1, padx=5, pady=5)
-    canvas.create_window(250, 160, window=frame_buttons)
     
-    collection_lbl = tk.Label(root, text="Library Collection:", font=("Arial", 12, "bold"), bg="LightGray")
-    canvas.create_window(250, 225, window=collection_lbl)
-
+    frame_add_button = tk.Frame(root)
+    canvas.create_window(225, 165, window=frame_add_button)
+    tk.Button(frame_add_button, text="Add Book", font=("Arial", 10, "bold"), width=15, command=add_book, bg="lightblue", fg="black").pack()
     
-    canvas.create_window(250, 340, window=display_lst)
+    frame_borrow_button = tk.Frame(root)
+    canvas.create_window(145, 210, window=frame_borrow_button)
+    tk.Button(frame_borrow_button, text="Borrow Book", font=("Arial", 10, "bold"), width=15, command=lend_book, bg="yellow", fg="black").pack()
+    
+    frame_return_button = tk.Frame(root)
+    canvas.create_window(310, 210, window=frame_return_button)
+    tk.Button(frame_return_button, text="Return Book", font=("Arial", 10, "bold"), width=15, command=return_book, bg="lightgreen", fg="black").pack()
+
+    canvas.create_text(
+    220, 255,
+    text="Library Collection:",
+    font=("Arial", 16, "bold"),
+    justify= "center",
+    fill="white"
+    )
+    
+    canvas.create_window(220, 380, window=display_lst)
 
     display_books()
 
