@@ -12,7 +12,7 @@ def load_books():
 def start_gui():
 
     books = load_books()
-    lib = Library(books, "Pouya's Library")
+    lib = Library("Pouya's Library")
 
     root = tk.Tk()
     root.title("Library Management System")
