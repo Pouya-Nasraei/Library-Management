@@ -47,9 +47,6 @@ class Library:
         return self.bookList
 
     def lendBook(self, book, user):
-        
-        book = book.strip()
-        user = user.strip()
 
         validate_book(book)
         validate_user(user)
@@ -77,15 +74,15 @@ class Library:
         return f"Book '{real_book}' has been borrowed by {user}."
 
     def addBook(self, book):
-        
-        book = book.strip()
 
         validate_book(book)
 
         key = self._normalize(book)
 
+        real_book = self.book_lookup[key]
+        
         if key in self.book_lookup:
-            return f"Book '{book}' already exists."
+            return f"Book '{book}' already exists as '{real_book}'."
 
         self.bookList.append(book)
         self.book_lookup[key] = book
@@ -96,8 +93,6 @@ class Library:
         return f"Book '{book}' added successfully."
 
     def returnBook(self, book):
-        
-        book = book.strip()
 
         validate_book(book)
 
